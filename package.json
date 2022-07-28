@@ -1,0 +1,76 @@
+{
+  "name": "project.continuous-delivery",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "Felix Kirmse for Code Chrysalis",
+  "scripts": {
+    "start": "node server",
+    "hack": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "eslint --fix --ext .js --ext .jsx ."
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "knex": "^0.21.19",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.6.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-google-maps": "^9.4.5",
+    "react-redux": "^7.2.4",
+    "react-scripts": "4.0.0",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-problems": "^5.0.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "^4.3.8",
+    "jest-cli": "^26.6.3",
+    "mocha": "^8.2.1",
+    "prettier": "^2.3.2",
+    "pretty-quick": "^3.1.1",
+    "react-test-renderer": "^16.14.0",
+    "sinon": "^9.2.4"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
+  "browserslist": {
+    "production": [
+      ">0.3%",
+      "not ie 11",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      ">0.3%",
+      "not ie 11",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
