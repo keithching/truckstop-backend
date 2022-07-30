@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 9000;
   try {
     console.log("Running migrations...");
     // await db.migrate.latest();
-
+    // test feature branch thing... 🙏
     console.log("Starting express...");
     app.listen(PORT, () => {
       console.log(`App listening on port ${PORT}!`);
