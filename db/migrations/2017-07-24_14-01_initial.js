@@ -10,4 +10,6 @@ exports.up = function (knex) {
   });
 };
 
-exports.down = function (knex, Promise) {};
+exports.down = async function (knex, Promise) {
+  await knex.schmea.dropTable("locations");
+};

@@ -2,12 +2,12 @@ require("dotenv").config();
 const app = require("./app");
 const db = require("./knex");
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 5432;
 
 (async () => {
   try {
     console.log("Running migrations...");
-    // await db.migrate.latest();
+    await db.migrate.latest();
     // test feature branch thing... 🙏
     // kenny test feature branch thing... 🙏
 
