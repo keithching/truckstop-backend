@@ -34,13 +34,13 @@ for (let i = 0; i < 3; i++) {
   // }
   
   // Resturants
-  for(const concept of data[i].Site.Concepts) {
-    console.log(data[i].Site.SiteId);
+  // for(const concept of data[i].Site.Concepts) {
+  //   console.log(data[i].Site.SiteId);
 
-    // console.log(concept.Concept.Id);
-    console.log(concept.Concept.Name);
-    console.log(concept.Concept.ConceptIcon);
-  }
+  //   // console.log(concept.Concept.Id);
+  //   console.log(concept.Concept.Name);
+  //   console.log(concept.Concept.ConceptIcon);
+  // }
 
   // Amenities
   // for(const customField of data[i].CustomFields) {
@@ -51,12 +51,12 @@ for (let i = 0; i < 3; i++) {
   // }
 
   // Gas Prices
-  // for(const fuelPrice of data[i].Site.FuelPrices) {
-  //   console.log(data[i].Site.SiteId);
+  for(const fuelPrice of data[i].Site.FuelPrices) {
+    console.log(data[i].Site.SiteId);
 
-  //   console.log(fuelPrice.FuelType);
-  //   console.log(fuelPrice.CashPrice);
-  // }
+    console.log(fuelPrice.FuelType);
+    console.log(fuelPrice.CashPrice);
+  }
 
   // console.log(contact)
   // console.log(contact[0].Data)
