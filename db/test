@@ -1,0 +1,56 @@
+const fs = require("fs");
+const data = JSON.parse(fs.readFileSync("../data/locations.json"));
+
+
+for (let i = 0; i < 3; i++) {
+
+
+  // Site
+  console.log(data[i].Site.SiteId);
+  console.log(data[i].Site.Latitude);
+  console.log(data[i].Site.Longitude);
+  console.log(data[i].Site.DescriptiveAddress);
+
+  console.log(data[i].Addresses[0].Name);
+  console.log(data[i].Addresses[0].City);
+  console.log(data[i].Addresses[0].State);
+
+  // console.log(data[i].ContactMethods);
+  let contact = data[i].ContactMethods.filter(el => {
+    // console.log(el.Type.Name)
+    if (el.Type.Name === "Main Phone") {
+      return el.Data
+    }
+  })
+  
+  
+  
+  // Truck Services
+  for(const additionalAmenity of data[i].AdditionalAmenities) {
+    let amenity = additionalAmenity.SiteManagementItem;
+    console.log(amenity.Title);
+  }
+  
+  // Resturants
+  for(const concept of data[i].Site.Concepts) {
+    console.log(concept.Concept.Id);
+    console.log(concept.Concept.Name);
+    console.log(concept.Concept.ConceptIcon);
+  }
+
+  // Amenities
+  for(const customField of data[i].CustomFields) {
+    console.log(customField.CustomField.Label);
+    console.log(customField.CustomField.FacilityLogo);
+  }
+
+  // Gas Prices
+  for(const fuelPrice of data[i].Site.FuelPrices) {
+    console.log(fuelPrice.FuelType);
+    console.log(fuelPrice.CashPrice);
+  }
+
+  console.log(contact)
+  console.log(contact[0].Data)
+ 
+}

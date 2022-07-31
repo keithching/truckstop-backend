@@ -10,7 +10,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint --fix --ext .js --ext .jsx ."
+    "lint": "eslint --fix --ext .js --ext .jsx .",
+    "make:migration": "knex make:migration",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
