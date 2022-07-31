@@ -26,39 +26,39 @@ for (let i = 0; i < 3; i++) {
   
   
   // Truck Services
-  for(const additionalAmenity of data[i].AdditionalAmenities) {
-    console.log(data[i].Site.SiteId);
+  // for(const additionalAmenity of data[i].AdditionalAmenities) {
+  //   console.log(data[i].Site.SiteId);
 
-    let amenity = additionalAmenity.SiteManagementItem;
-    console.log(amenity.Title);
-  }
+  //   let amenity = additionalAmenity.SiteManagementItem;
+  //   console.log(amenity.Title);
+  // }
   
   // Resturants
   for(const concept of data[i].Site.Concepts) {
     console.log(data[i].Site.SiteId);
 
-    console.log(concept.Concept.Id);
+    // console.log(concept.Concept.Id);
     console.log(concept.Concept.Name);
     console.log(concept.Concept.ConceptIcon);
   }
 
   // Amenities
-  for(const customField of data[i].CustomFields) {
-    console.log(data[i].Site.SiteId);
+  // for(const customField of data[i].CustomFields) {
+  //   console.log(data[i].Site.SiteId);
 
-    console.log(customField.CustomField.Label);
-    console.log(customField.CustomField.FacilityLogo);
-  }
+  //   console.log(customField.CustomField.Label);
+  //   console.log(customField.CustomField.FacilityLogo);
+  // }
 
   // Gas Prices
-  for(const fuelPrice of data[i].Site.FuelPrices) {
-    console.log(data[i].Site.SiteId);
+  // for(const fuelPrice of data[i].Site.FuelPrices) {
+  //   console.log(data[i].Site.SiteId);
 
-    console.log(fuelPrice.FuelType);
-    console.log(fuelPrice.CashPrice);
-  }
+  //   console.log(fuelPrice.FuelType);
+  //   console.log(fuelPrice.CashPrice);
+  // }
 
-  console.log(contact)
-  console.log(contact[0].Data)
+  // console.log(contact)
+  // console.log(contact[0].Data)
  
 }
