@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./knex.js");
+
 const cors = require("cors");
 
 const app = express();
@@ -21,6 +22,8 @@ app.use(express.static(path.resolve(__dirname, "..", "build")));
 // https://expressjs.com/en/resources/middleware/cors.html#enabling-cors-pre-flight
 app.use(cors());
 
+app.use(express.json()); // middleware. every incoming request gets parsed as JSON
+
 app.get("/api/locations", async (req, res) => {
   try {
     const locations = await db.select().table("locations");
@@ -28,6 +31,17 @@ app.get("/api/locations", async (req, res) => {
   } catch (err) {
     console.error("Error loading locations!", err);
     res.sendStatus(500);
+  }
+});
+
+app.get("/api/truck-services", async (req, res) => {
+  try {
+    const truckServices = await db.select("*").from("truck_services");
+    console.log(truckServices);
+    res.send(truckServices);
+  } catch (err) {
+    console.error("Error loading truck services!", err);
+    res.send(500).end();
   }
 });
 
