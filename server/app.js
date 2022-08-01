@@ -45,6 +45,26 @@ app.get("/api/truck-services", async (req, res) => {
   }
 });
 
+app.get("/api/restaurants", async (req, res) => {
+  try {
+    const restaurants = await db.select("*").from("restaurants");
+    res.send(restaurants);
+  } catch (err) {
+    console.error("Error loading restaurants!", err);
+    res.send(500).end();
+  }
+});
+
+app.get("/api/amenities", async (req, res) => {
+  try {
+    const amenities = await db.select("*").from("amenities");
+    res.send(amenities);
+  } catch (err) {
+    console.error("Error loading amenities!", err);
+    res.send(500).end();
+  }
+});
+
 // Always return the main index.html, so react-router render the route in the client
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
