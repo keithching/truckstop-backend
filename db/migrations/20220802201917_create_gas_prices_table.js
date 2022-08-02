@@ -6,10 +6,10 @@ exports.up = function (knex) {
       .references("site_id")
       .inTable("locations")
       .onDelete("CASCADE");
-    table.float("Unleaded");
-    table.float("Midgrade");
-    table.float("Premium");
-    table.float("Diesel");
+    table.string("Unleaded");
+    table.string("Midgrade");
+    table.string("Premium");
+    table.string("Diesel");
   });
 };
 
