@@ -27,8 +27,7 @@ app.use(express.json()); // middleware. every incoming request gets parsed as JS
 
 app.get("/api/locations", async (req, res) => {
   try {
-    const locations = await db.raw(`SELECT 1;`);
-    // const locations = await db.select().table("locations");
+    const locations = await db.select().table("locations");
     res.json(locations);
   } catch (err) {
     console.error("Error loading locations!", err);
