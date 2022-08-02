@@ -66,6 +66,16 @@ app.get("/api/amenities", async (req, res) => {
   }
 });
 
+app.get("/api/gas-prices", async (req, res) => {
+  try {
+    const gasPrices = await db.select("*").from("gas_prices");
+    res.send(gasPrices);
+  } catch (err) {
+    console.error("Error loading gas prices!", err);
+    res.send(500).end();
+  }
+});
+
 app.get("/api/searchItems", async (req, res) => {
   try {
     let truckServices = await db
