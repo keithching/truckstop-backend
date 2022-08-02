@@ -12,7 +12,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js --ext .jsx .",
-    "make:migration": "knex make:migration",
+    "make:migration": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run"
   },

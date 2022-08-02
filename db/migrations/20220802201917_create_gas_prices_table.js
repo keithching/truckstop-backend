@@ -1,0 +1,18 @@
+exports.up = function (knex) {
+  return knex.schema.createTable("gas_prices", (table) => {
+    table.increments().index();
+    table
+      .integer("locations_site_id")
+      .references("site_id")
+      .inTable("locations")
+      .onDelete("CASCADE");
+    table.float("Unleaded");
+    table.float("Midgrade");
+    table.float("Premium");
+    table.float("Diesel");
+  });
+};
+
+exports.down = function (knex) {
+  return knex.schema.dropTable("gas_prices");
+};
