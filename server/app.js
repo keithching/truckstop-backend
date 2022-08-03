@@ -27,7 +27,64 @@ app.use(express.json()); // middleware. every incoming request gets parsed as JS
 
 app.get("/api/locations", async (req, res) => {
   try {
-    const locations = await db.select().table("locations");
+    const queries = {};
+    if (req.query) {
+      if (req.query.state) queries.state = req.query.state;
+      if (req.query.city) queries.city = req.query.city;
+    }
+
+    const locations =
+      Object.keys(queries).length === 0
+        ? await db.select().table("locations")
+        : await db
+            .select()
+            .table("locations")
+            .where("city", req.query.city)
+            .andWhere("state", req.query.state);
+
+    const truckServices = await db.select("*").from("truck_services");
+    for (const item of truckServices) {
+      for (const location of locations) {
+        if (!location.truckServices) location.truckServices = [];
+        if (location.id === item.locations_site_id) {
+          location.truckServices.push(item.service_name);
+        }
+      }
+    }
+
+    const amenities = await db.select("*").from("amenities");
+    for (const item of amenities) {
+      for (const location of locations) {
+        if (!location.amenities) location.amenities = [];
+        if (location.id === item.locations_site_id) {
+          location.amenities.push(item.amenity_name);
+        }
+      }
+    }
+
+    const restaurants = await db.select("*").from("restaurants");
+    for (const item of restaurants) {
+      for (const location of locations) {
+        if (!location.restaurants) location.restaurants = [];
+        if (location.id === item.locations_site_id) {
+          location.restaurants.push(item.restaurant_name);
+        }
+      }
+    }
+
+    const gasPrices = await db.select("*").from("gas_prices");
+    for (const item of gasPrices) {
+      for (const location of locations) {
+        if (!location.gasPrices) location.gasPrices = {};
+        if (location.id === item.locations_site_id) {
+          location.gasPrices.Unleaded = item.Unleaded;
+          location.gasPrices.Midgrade = item.Midgrade;
+          location.gasPrices.Premium = item.Premium;
+          location.gasPrices.Diesel = item.Diesel;
+        }
+      }
+    }
+
     res.json(locations);
   } catch (err) {
     console.error("Error loading locations!", err);
