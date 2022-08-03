@@ -31,9 +31,14 @@ app.get("/api/locations", async (req, res) => {
     if (req.query) {
       if (req.query.state) queries.state = req.query.state;
       if (req.query.city) queries.city = req.query.city;
+      if (req.query["truck-services"])
+        queries["truck-services"] = req.query["truck-services"];
+      if (req.query["restaurants"])
+        queries["restaurants"] = req.query["restaurants"];
+      if (req.query["amenities"]) queries["amenities"] = req.query["amenities"];
     }
 
-    const locations =
+    let locations =
       Object.keys(queries).length === 0
         ? await db.select().table("locations")
         : await db
@@ -83,6 +88,26 @@ app.get("/api/locations", async (req, res) => {
           location.gasPrices.Diesel = item.Diesel;
         }
       }
+    }
+
+    if (queries["truck-services"]) {
+      locations = locations.filter((location) =>
+        location.truckServices.find(
+          (truckService) => truckService === queries["truck-services"]
+        )
+      );
+    }
+    if (queries.amenities) {
+      locations = locations.filter((location) =>
+        location.amenities.find((amenity) => amenity === queries.amenities)
+      );
+    }
+    if (queries.restaurants) {
+      locations = locations.filter((location) =>
+        location.restaurants.find(
+          (restaurant) => restaurant === queries.restaurants
+        )
+      );
     }
 
     res.json(locations);
