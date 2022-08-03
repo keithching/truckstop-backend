@@ -37,6 +37,8 @@ app.get("/api/locations", async (req, res) => {
         queries["restaurants"] = req.query["restaurants"];
       if (req.query["amenities"]) queries["amenities"] = req.query["amenities"];
     }
+    // debug 1
+    console.log(queries);
 
     let locations =
       Object.keys(queries).length === 0
@@ -47,15 +49,19 @@ app.get("/api/locations", async (req, res) => {
             .where("city", req.query.city)
             .andWhere("state", req.query.state);
 
+    let hasRun1 = false;
+
     const truckServices = await db.select("*").from("truck_services");
     for (const item of truckServices) {
       for (const location of locations) {
         if (!location.truckServices) location.truckServices = [];
         if (location.id === item.locations_site_id) {
+          hasRun1 = true;
           location.truckServices.push(item.service_name);
         }
       }
     }
+    console.log({ hasRun1 });
 
     const amenities = await db.select("*").from("amenities");
     for (const item of amenities) {
