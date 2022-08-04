@@ -3,7 +3,6 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./knex.js");
-// const knex = require("knex");
 
 const cors = require("cors");
 
@@ -29,16 +28,13 @@ app.get("/api/locations", async (req, res) => {
   try {
     const queries = {};
     if (req.query) {
-      if (req.query.state) queries.state = req.query.state;
-      if (req.query.city) queries.city = req.query.city;
-      if (req.query["truck-services"])
-        queries["truck-services"] = req.query["truck-services"];
-      if (req.query["restaurants"])
-        queries["restaurants"] = req.query["restaurants"];
-      if (req.query["amenities"]) queries["amenities"] = req.query["amenities"];
+      if (req.query.state) {
+        queries.state = req.query.state;
+      }
+      if (req.query.city) {
+        queries.city = req.query.city;
+      }
     }
-    // debug 1
-    console.log(queries);
 
     let locations =
       Object.keys(queries).length === 0
@@ -48,73 +44,6 @@ app.get("/api/locations", async (req, res) => {
             .table("locations")
             .where("city", req.query.city)
             .andWhere("state", req.query.state);
-
-    let hasRun1 = false;
-
-    const truckServices = await db.select("*").from("truck_services");
-    for (const item of truckServices) {
-      for (const location of locations) {
-        if (!location.truckServices) location.truckServices = [];
-        if (location.id === item.locations_site_id) {
-          hasRun1 = true;
-          location.truckServices.push(item.service_name);
-        }
-      }
-    }
-    console.log({ hasRun1 });
-
-    const amenities = await db.select("*").from("amenities");
-    for (const item of amenities) {
-      for (const location of locations) {
-        if (!location.amenities) location.amenities = [];
-        if (location.id === item.locations_site_id) {
-          location.amenities.push(item.amenity_name);
-        }
-      }
-    }
-
-    const restaurants = await db.select("*").from("restaurants");
-    for (const item of restaurants) {
-      for (const location of locations) {
-        if (!location.restaurants) location.restaurants = [];
-        if (location.id === item.locations_site_id) {
-          location.restaurants.push(item.restaurant_name);
-        }
-      }
-    }
-
-    const gasPrices = await db.select("*").from("gas_prices");
-    for (const item of gasPrices) {
-      for (const location of locations) {
-        if (!location.gasPrices) location.gasPrices = {};
-        if (location.id === item.locations_site_id) {
-          location.gasPrices.Unleaded = item.Unleaded;
-          location.gasPrices.Midgrade = item.Midgrade;
-          location.gasPrices.Premium = item.Premium;
-          location.gasPrices.Diesel = item.Diesel;
-        }
-      }
-    }
-
-    if (queries["truck-services"]) {
-      locations = locations.filter((location) =>
-        location.truckServices.find(
-          (truckService) => truckService === queries["truck-services"]
-        )
-      );
-    }
-    if (queries.amenities) {
-      locations = locations.filter((location) =>
-        location.amenities.find((amenity) => amenity === queries.amenities)
-      );
-    }
-    if (queries.restaurants) {
-      locations = locations.filter((location) =>
-        location.restaurants.find(
-          (restaurant) => restaurant === queries.restaurants
-        )
-      );
-    }
 
     res.json(locations);
   } catch (err) {
