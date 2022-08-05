@@ -36,15 +36,24 @@ app.get("/api/locations", async (req, res) => {
       }
     }
 
-    let locations =
+    // city only is not allowed
+    // state only is allowed
+    const errorMsg = "search with city alone is not granted";
+
+    const locations =
       Object.keys(queries).length === 0
         ? await db.select().table("locations")
-        : await db
+        : queries.state && !queries.city
+        ? await db.select().table("locations").where("state", req.query.state)
+        : queries.state && queries.city
+        ? await db
             .select()
             .table("locations")
             .where("city", req.query.city)
-            .andWhere("state", req.query.state);
+            .andWhere("state", req.query.state)
+        : `${errorMsg}`;
 
+    if (locations === errorMsg) throw new Error(errorMsg);
     res.json(locations);
   } catch (err) {
     console.error("Error loading locations!", err);
